@@ -1,0 +1,446 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => ubergarm's vim config
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Inspired by:
+"       Amir Salihefendic
+"       http://amix.dk - amix@amix.dk
+"
+" Welcome back, stranger.
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W w !sudo tee % > /dev/null
+
+" Reload .vimrc with ,S
+map <leader>S :source $MYVIMRC<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set 7 lines to the cursor - when moving vertically using j/k
+set so=7
+
+" Avoid garbled characters in Chinese language windows OS
+let $LANG='en'
+set langmenu=en
+source $VIMRUNTIME/delmenu.vim
+source $VIMRUNTIME/menu.vim
+
+" Turn on the WiLd menu
+set wildmenu
+
+" Ignore compiled files
+set wildignore=*.o,*~,*.pyc
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+"Always show current position
+set ruler
+
+" Height of the command bar
+set cmdheight=2
+
+" A buffer becomes hidden when it is abandoned
+set hid
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+set whichwrap+=<,>,h,l
+
+" Ignore case when searching
+set ignorecase
+
+" When searching try to be smart about cases
+set smartcase
+
+" Highlight search results
+set hlsearch
+
+" Makes search act like search in modern browsers
+set incsearch
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+
+" For regular expressions turn magic on
+set magic
+
+" Show matching brackets when text indicator is over them
+set showmatch
+" How many tenths of a second to blink when matching brackets
+set mat=2
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Properly disable sound on errors on MacVim
+if has("gui_macvim")
+    autocmd GUIEnter * set vb t_vb=
+endif
+
+" Add a bit extra margin to the left
+set foldcolumn=1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Colors and Fonts
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Enable syntax highlighting
+syntax enable
+
+" Enable 256 colors palette in Gnome Terminal
+if $COLORTERM == 'gnome-terminal'
+    set t_Co=256
+endif
+
+try
+    colorscheme gruvbox
+catch
+    colorscheme desert
+endtry
+
+set background=dark
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Disable background for transparent terminals
+hi Normal guibg=NONE ctermbg=NONE
+hi SignColumn guibg=NONE ctermbg=NONE
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+" Also highlight all tabs and trailing whitespace characters.
+highlight ExtraWhitespace ctermbg=darkred guibg=darkred
+match ExtraWhitespace /\s\+$/
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Files, backups and undo
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowb
+set noswapfile
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Text, tab and indent related
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use spaces instead of tabs
+set expandtab
+
+" Be smart when using tabs ;)
+set smarttab
+
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
+
+" Linebreak on 500 characters
+set lbr
+set tw=500
+
+set ai "Auto indent
+set si "Smart indent
+set wrap "Wrap lines
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
+vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Moving around, tabs, windows and buffers
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Disable highlight when <space> is pressed
+map <silent> <space> :noh<cr>:set nospell<cr>
+
+" jump to first character in line
+nnoremap H 0
+" jump to last character in line
+nnoremap L $
+
+" Easier split navigation
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" More natural splits
+set splitbelow          " Horizontal split below current.
+set splitright          " Vertical split to right of current.
+
+if !&scrolloff
+    set scrolloff=3       " Show next 3 lines while scrolling.
+endif
+if !&sidescrolloff
+    set sidescrolloff=5   " Show next 5 columns while side-scrolling.
+endif
+set display+=lastline
+set nostartofline       " Do not jump to first character with page commands.
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>:tabclose<cr>gT
+
+" Close all the buffers
+map <leader>ba :bufdo bd<cr>
+
+map <leader>l :bnext<cr>
+map <leader>h :bprevious<cr>
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove
+map <leader>t<leader> :tabnext
+
+" Let 'tl' toggle between this and the last accessed tab
+let g:lasttab = 1
+nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Specify the behavior when switching between buffers
+try
+  set switchbuf=useopen,usetab,newtab
+  set stal=2
+catch
+endtry
+
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+
+
+""""""""""""""""""""""""""""""
+" => Status line
+""""""""""""""""""""""""""""""
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Editing mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remap VIM 0 to first non-blank character
+map 0 ^
+
+" Move a line of text using ALT+[jk] or Command+[jk] on mac
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+if has("mac") || has("macunix")
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Spell checking
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Pressing ,ss will toggle and untoggle spell checking
+map <leader>ss :setlocal spell!<cr>
+
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Misc
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+" Quickly open a buffer for scribble
+map <leader>q :e ~/buffer<cr>
+
+" Quickly open a markdown buffer for scribble
+map <leader>x :e ~/buffer.md<cr>
+
+" Toggle paste mode on and off
+map <leader>pp :setlocal paste!<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Copy & Paste
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Share across sessions, GUIs, and xclip
+
+" Use system clipboard
+if has('clipboard')
+  set clipboard=unnamedplus
+endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Helper functions
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Returns true if paste mode is enabled
+function! HasPaste()
+    if &paste
+        return 'PASTE MODE  '
+    endif
+    return ''
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Manually git clone into `start` or `opt` and `:packadd name`
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Airline
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#whitespace#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Markdown
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:markdown_include_jekyll_support = 0
+let g:markdown_mapping_switch_status = '<leader>s'
+let g:markdown_enable_folding = 0
+let g:markdown_enable_mappings = 1
+let g:markdown_enable_insert_mode_mappings = 0
+let g:markdown_enable_insert_mode_leader_mappings = 0
+let g:markdown_enable_spell_checking = 1
+let g:markdown_enable_input_abbreviations = 1
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Abolish
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if exists(":Abolish")
+    :Abolish {despa,sepe}rat{e,es,ed,ing,ely,ion,ions,or}  {despe,sepa}rat{}
+    :Abolish cal{a,e}nder{,s} cal{e}ndar{}
+    :Abolish anomol{y,ies} anomal{}
+    :Abolish {,in}consistant{,ly} {}consistent{}
+  	:Abolish {,un}nec{ce,ces,e}sar{y,ily} {}nec{es}sar{}
+endif
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Ale
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Do not keep gutter open
+let g:ale_sign_column_always = 0
+
+" Configure highlight symbols and colors
+let g:ale_sign_error = '▶'
+let g:ale_sign_warning = '◎'
+highlight ALEErrorSign ctermfg=red ctermbg=NONE
+highlight ALEWarningSign ctermfg=yellow ctermbg=NONE
+
+" Control K/J to jump to next/prev error
+nmap <silent> <C-k> <Plug>(ale_previous_wrap)
+nmap <silent> <C-j> <Plug>(ale_next_wrap)
+
+" Only run on start and on save
+let g:ale_lint_on_text_changed = 'never'
+
+" Ignore long lines and trailing white space in python
+let g:ale_python_flake8_args="--max-line-length=120 --ignore=W291"
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Completor
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Use Tab to select completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+
+" pip3 install jedi
+let g:completor_python_binary = '/usr/bin/python3'
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Easyclip
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Share :Yanks across all vim sessions
+let g:EasyClipShareYanksFile = ".easyclip"
+let g:EasyClipShareYanks = 1
+" Yank into system clipboard register by default
+set clipboard=unnamed
