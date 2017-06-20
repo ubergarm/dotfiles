@@ -181,6 +181,18 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+" Override default preferences per filetype
+" tabstop (ts) is how tabs will be rendered visually
+" shiftwidth (sw) is how many columns are indented with ">>"
+" expandtab is whether or not to make tab button into spaces
+" softtabstop (sts) is only for noexpandtab, if sts < ts a combo of tabs and spaces will be used
+autocmd FileType python setlocal ts=4 sw=4 expandtab
+autocmd FileType markdown setlocal ts=4 sw=4 expandtab
+autocmd Filetype html setlocal ts=2 sw=2 expandtab
+autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
+autocmd Filetype php setlocal ts=4 sw=4 sts=0 noexpandtab
+
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
