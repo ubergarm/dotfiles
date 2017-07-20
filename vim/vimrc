@@ -435,6 +435,9 @@ let g:ale_lint_on_text_changed = 'never'
 " Ignore long lines and trailing white space in python
 let g:ale_python_flake8_args="--max-line-length=120 --ignore=W291"
 
+" mypy static type checking
+let g:ale_python_mypy_options="--silent-imports"
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Completor
@@ -445,7 +448,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
 " pip3 install jedi
-let g:completor_python_binary = '/usr/bin/python3'
+let g:completor_python_binary = '/home/garm/.pvm/bin/python'
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
