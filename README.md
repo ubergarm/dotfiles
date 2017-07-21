@@ -4,12 +4,37 @@ Because config.
 
 ## Install
 ```bash
-# Vim 8 & tmux-next
-sudo add-apt-repository ppa:pi-rho/dev
-sudo apt-get update
-sudo apt-get install vim tmux-next
+# Vim 8
+# install python deps
+sudo apt-get install python2.7-dev python3.6-dev
+# install vim deps
+sudo apt-get install checkinstall libncurses-dev libx11-dev
+# make sure you're not in an python venv
+# clone vim
+cd ~/projects
+git clone https://github.com/vim/vim.git
+# configure
+./configure \
+    --enable-multibyte \
+    --enable-pythoninterp=dynamic \
+    --with-python-config-dir=/usr/lib/python2.7/config-x86_64-linux-gnu \
+    --enable-python3interp \
+    --with-python3-config-dir=/usr/lib/python3.6/config-3.6m-x86_64-linux-gnu/ \
+    --enable-cscope \
+    --enable-gui=auto \
+    --with-features=huge \
+    --with-x \
+    --enable-fontset \
+    --enable-largefile \
+    --disable-netbeans \
+    --with-compiledby="ubergarm" \
+    --enable-fail-if-missing
+# build and install .deb
+sudo checkinstall
+# confirm version
 vim --version
-tmux-next -V
+# uninstall
+sudo dpkg -r vim
 ```
 
 ```bash
