@@ -188,6 +188,7 @@ set wrap "Wrap lines
 " softtabstop (sts) is only for noexpandtab, if sts < ts a combo of tabs and spaces will be used
 autocmd FileType python setlocal ts=4 sw=4 expandtab
 autocmd FileType markdown setlocal ts=4 sw=4 expandtab
+autocmd FileType yaml setlocal ts=2 sw=2 expandtab
 autocmd Filetype html setlocal ts=2 sw=2 expandtab
 autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
 autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
@@ -440,16 +441,21 @@ let g:ale_python_mypy_options="--silent-imports"
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Completor
+" => [Completor](https://github.com/maralla/completor.vim)
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use Tab to select completion
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" let g:completor_auto_trigger = 0
+" inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
 
 " pip3 install jedi
-let g:completor_python_binary = '/home/garm/.pvm/bin/python'
-
+let g:completor_python_binary = $VIRTUAL_ENV + '/bin/python'
+" npm i -g tern
+let g:completor_gocode_binary = $NVM_BIN + '/node'
+" go get -u github.com/nsf/gocode && cd $GOPATH/src/github.com/nsf/gocode && go build
+let g:completor_gocode_binary = $GOPATH + '/src/github.com/nsf/gocode/gocode'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Easyclip
