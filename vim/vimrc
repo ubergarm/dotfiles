@@ -181,20 +181,23 @@ set ai "Auto indent
 set si "Smart indent
 set wrap "Wrap lines
 
+" Stuff in some new filetypes
+au BufNewFile,BufRead *.zs set filetype=javascript
+
 " Override default preferences per filetype
 " tabstop (ts) is how tabs will be rendered visually
 " shiftwidth (sw) is how many columns are indented with ">>"
 " expandtab is whether or not to make tab button into spaces
 " softtabstop (sts) is only for noexpandtab, if sts < ts a combo of tabs and spaces will be used
-autocmd FileType python setlocal ts=4 sw=4 expandtab
-autocmd FileType markdown setlocal ts=4 sw=4 expandtab
-autocmd FileType yaml setlocal ts=2 sw=2 expandtab
-autocmd Filetype html setlocal ts=2 sw=2 expandtab
-autocmd Filetype ruby setlocal ts=2 sw=2 expandtab
-autocmd Filetype javascript setlocal ts=2 sw=2 expandtab
-autocmd Filetype php setlocal ts=4 sw=4 sts=0 noexpandtab
-autocmd Filetype go setlocal ts=4 sw=4 sts=4 noexpandtab
-
+autocmd filetype python setlocal ts=4 sw=4 expandtab
+autocmd filetype markdown setlocal ts=4 sw=4 expandtab
+autocmd filetype yaml setlocal ts=2 sw=2 expandtab
+autocmd filetype html setlocal ts=2 sw=2 expandtab
+autocmd filetype ruby setlocal ts=2 sw=2 expandtab
+autocmd filetype javascript setlocal ts=4 sw=4 expandtab
+autocmd filetype php setlocal ts=4 sw=4 sts=0 noexpandtab
+autocmd filetype go setlocal ts=4 sw=4 sts=4 noexpandtab
+"autocmd filetype zenscript setlocal ts=4 sw=4 sts=4 noexpandtab
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -307,6 +310,9 @@ endif
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set spelling lang
+set spell spelllang=en_us
+
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
@@ -315,6 +321,13 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
+
+" Spell-check Markdown files and Git Commit Messages
+autocmd FileType markdown setlocal spell
+autocmd FileType gitcommit setlocal spell
+" Enable dictionary auto-completion in Markdown files and Git Commit Messages
+autocmd FileType markdown setlocal complete+=kspell
+autocmd FileType gitcommit setlocal complete+=kspell
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
