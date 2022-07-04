@@ -44,4 +44,10 @@ return require('packer').startup(function()
   -- neovim treesitter for advanced highlighting
   use 'nvim-treesitter/nvim-treesitter'
 
+  -- misc stuff i like
+  use 'vim-airline/vim-airline'
+  use 'tpope/vim-commentary'
+  use 'tpope/vim-repeat'
+  use 'tpope/vim-surround'
+
 end)
