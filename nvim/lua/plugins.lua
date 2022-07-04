@@ -41,4 +41,7 @@ return require('packer').startup(function()
   lsp.preset('recommended')
   lsp.setup()
 
+  -- neovim treesitter for advanced highlighting
+  use 'nvim-treesitter/nvim-treesitter'
+
 end)
