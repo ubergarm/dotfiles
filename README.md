@@ -2,6 +2,9 @@ ubergarm's dotfiles
 ---
 Because config.
 
+## tl;dr;
+Some config files I use on various dev environments. Trying Neovim stuff in `nvim/` dir.
+
 ## Install
 ```bash
 # Vim 8
@@ -86,3 +89,4 @@ e.g. `DejaVu Sans Mono for Powerline:pixelsize=20:antialias=true:autohint=true`
 * [Shapeshed Tutorial](https://shapeshed.com/vim-packages/)
 * [powerline/fonts](https://github.com/powerline/fonts)
 * [vimawesome.com](http://vimawesome.com/)
+* [neovim](https://github.com/VonHeikemen/lsp-zero.nvim)

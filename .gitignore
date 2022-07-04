@@ -1,2 +1,4 @@
 vim/vim/pack/plugins/start/*
 vim/vim/pack/plugins/opt/*
+vim/vim/black/
+nvim/plugin/
