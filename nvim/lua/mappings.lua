@@ -1,5 +1,6 @@
 vim.cmd('noremap <C-b> :noh<cr>:call clearmatches()<cr>') -- clear matches Ctrl+b
 vim.cmd('map <silent> <space> :noh<cr>:set nospell<cr>') -- disable highlights on <space>
+vim.cmd(":command Black !black %") -- :Black will run python code formater on open buffer
 
 function map(mode, shortcut, command)
   vim.api.nvim_set_keymap(mode, shortcut, command, { noremap = true, silent = true })
@@ -24,6 +25,7 @@ end
 function tmap(shortcut, command)
   map('t', shortcut, command)
 end
+
 
 -- sane regexes
 nmap('/', '/\\v')
