@@ -1,17 +1,19 @@
 require'nvim-treesitter.configs'.setup {
     -- ensure_installed can be "all" or a list of languages { "python", "javascript" }
     ensure_installed = {
-      "python",
       "bash",
-      "javascript",
-      "clojure",
-      "go",
-      "typescript",
-      "svelte",
-      "tsx",
+      "markdown",
+      "python",
       "html",
       "json",
-      "markdown"
+      "javascript",
+      "typescript",
+      "tsx",
+      "svelte",
+      "clojure",
+      "go",
+      "php",
+      "sql",
     },
 
     highlight = { -- enable highlighting for all file types

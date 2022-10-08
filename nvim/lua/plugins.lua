@@ -3,7 +3,7 @@
 -- Only required if you have packer configured as `opt`
 vim.cmd [[packadd packer.nvim]]
 
-return require('packer').startup(function()
+return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
@@ -37,17 +37,42 @@ return require('packer').startup(function()
     }
   })
 
+  -- https://github.com/VonHeikemen/lsp-zero.nvim
   local lsp = require('lsp-zero')
   lsp.preset('recommended')
+
+  -- lsp.preset('per-project')
+  -- configure individual LSP servers
+  -- pylsp https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+  -- this example does not work, maybe just switch to `pyright` lsp instead of `pylsp`
+  -- lsp.configure('pylsp', {
+  --     plugins = {
+  --       pycodestyle = {
+  --         max_line_length = 160
+  --       },
+  --     },
+  --   on_attach = function(client, bufnr)
+  --     print('pylsp running')
+  --   end
+  -- })
+  -- setup must be the last lsp-zero function as it does all the things
   lsp.setup()
+
 
   -- neovim treesitter for advanced highlighting
   use 'nvim-treesitter/nvim-treesitter'
+
+  -- for prettier: https://github.com/MunifTanjim/prettier.nvim
+  -- use 'neovim/nvim-lspconfig' -- installed already above
+  use 'jose-elias-alvarez/null-ls.nvim'
+  use 'MunifTanjim/prettier.nvim'
 
   -- misc stuff i like
   use 'vim-airline/vim-airline'
   use 'tpope/vim-commentary'
   use 'tpope/vim-repeat'
   use 'tpope/vim-surround'
+
+  -- setup must be the last lsp-zero function as it does all the things
 
 end)

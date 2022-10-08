@@ -64,12 +64,22 @@ vim.o.swapfile = false
 -- vim.o.backupdir = HOME .. '/.vim/tmp/backup//' -- backups
 -- vim.o.directory = '/.vim/tmp/swap//'   -- swap files
 
+-- maybe use https://github.com/sbdchd/neoformat instead of this ???
+-- for now just add a command that calls out to shell against %
+--vim.o.filetype.plugin = true
+--vim.o.filetype.indent = true
 vim.cmd([[
   au FileType python                  set ts=4 sw=4
   au BufRead,BufNewFile *.md          set ft=mkd tw=80 syntax=markdown
   au BufRead,BufNewFile *.ppmd        set ft=mkd tw=80 syntax=markdown
   au BufRead,BufNewFile *.markdown    set ft=mkd tw=80 syntax=markdown
   au BufRead,BufNewFile *.slimbars    set syntax=slim
+  au FileType html                    set ts=2 sw=2
+  au FileType javascript              set ts=2 sw=2
+  au FileType typescript              set ts=2 sw=2
+  au FileType yaml                    set ts=2 sw=2
+  au FileType json                    set ts=2 sw=2
+  au FileType go                      set ts=4 sw=4
 ]])
 
 -- Commands mode
@@ -96,3 +106,6 @@ vim.cmd('highlight SignColumn guibg=NONE ctermbg=NONE')
 
 vim.g.python3_host_prog = "~/.pvm/bin/python3"
 vim.g.python_host_prog = "~/.pvm/bin/python"
+
+-- disable visual mode on mouse so copy paste works properly against
+vim.cmd(':set mouse=')

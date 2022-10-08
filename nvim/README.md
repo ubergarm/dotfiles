@@ -15,7 +15,23 @@ git clone --depth 1 https://github.com/wbthomason/packer.nvim ~/.local/share/nvi
 ```
 
 ## Usage
-TODO
+Look at [LSP Zero](https://github.com/VonHeikemen/lsp-zero.nvim#lsp) shortcuts.
+
+## Updating
+Manual method works best as it can update even if things are not working:
+```bash
+## Update Packer repos
+cd ~/.local/share/nvim/site/pack/packer/start/
+for d in $(ls);do git -C $d pull;done
+
+## Update LSPs
+cd ~/.local/share/nvim/lsp_servers/
+for d in $(ls);do cd $d && npm update && cd -;done
+
+## Back inside nvim
+## https://github.com/nvim-treesitter/nvim-treesitter/issues/3092
+:TSUpdate
+```
 
 ## References
 * [lsp-zero](https://github.com/VonHeikemen/lsp-zero.nvim)
