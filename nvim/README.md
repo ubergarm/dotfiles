@@ -25,7 +25,7 @@ cd ~/.local/share/nvim/site/pack/packer/start/
 for d in $(ls);do git -C $d pull;done
 
 ## Update LSPs
-cd ~/.local/share/nvim/lsp_servers/
+cd ~/.local/share/nvim/mason/packages/
 for d in $(ls);do cd $d && npm update && cd -;done
 
 ## Back inside nvim

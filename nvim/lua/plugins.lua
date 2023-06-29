@@ -16,7 +16,10 @@ return require('packer').startup(function(use)
     requires = {
       -- LSP Support
       {'neovim/nvim-lspconfig'},
-      {'williamboman/nvim-lsp-installer'},
+      -- {'williamboman/nvim-lsp-installer'},
+      {'williamboman/mason.nvim'},
+      {'williamboman/mason-lspconfig.nvim'},
+
 
       -- Autocompletion
       {'hrsh7th/nvim-cmp'},
@@ -31,11 +34,11 @@ return require('packer').startup(function(use)
       {'rafamadriz/friendly-snippets'},
     }
   }
-  require('nvim-lsp-installer').settings({
-    ui = {
-      border = 'rounded'
-    }
-  })
+  -- require('mason').settings({
+  --   ui = {
+  --     border = 'rounded'
+  --   }
+  --  })
 
   -- https://github.com/VonHeikemen/lsp-zero.nvim
   local lsp = require('lsp-zero')
@@ -55,6 +58,18 @@ return require('packer').startup(function(use)
   --     print('pylsp running')
   --   end
   -- })
+
+  lsp.configure('lua_ls', {
+    settings = {
+      Lua = {
+        diagnostics = {
+          globals = { 'vim' }
+        }
+      }
+    }
+  })
+
+
   -- setup must be the last lsp-zero function as it does all the things
   lsp.setup()
 

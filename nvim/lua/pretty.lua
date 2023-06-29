@@ -19,7 +19,7 @@ null_ls.setup({
 })
 
 prettier.setup({
-  bin = 'prettier', -- or `prettierd`
+  bin = 'prettier', -- or `prettierd` or create /usr/local/bin/prettier that calls npx prettier lmaoooo
   filetypes = {
     "css",
     "graphql",
